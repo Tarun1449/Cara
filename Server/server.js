@@ -106,17 +106,7 @@ app.post('/api/makeOrders', verifyToken, async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
-app.get('/api/previousOrders', verifyToken, async (req, res) => {
-    try {
-        const email = req.userId;
-        const user = await User.findOne({email});
-        const orders = user.orders;
-        res.status(201).json({orders});
-    } catch (error) {
-        
-        res.status(400).json({ message: error.message });
-    }
-});
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../cart/build', 'index.html'));
 });
@@ -124,7 +114,7 @@ app.post('/api/details',verifyToken,async (req,res)=>{
     const email = req.userId;
     const existingUser = await User.findOne({email});
     console.log(existingUser);
-    res.status(201).json({email,name : existingUser.name});
+    res.status(201).json({existingUser});
 })
 
 
